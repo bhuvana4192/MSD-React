@@ -1,0 +1,9 @@
+/* HomePage.css */
+.home-page {
+  min-height: 100vh;
+  background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.8)),
+    url('https://adflex.io/wp-content/uploads/2023/04/using-color-to-appeal-to-foodies.webp')
+    no-repeat center center fixed;
+  background-size: cover;
+  color: orange;
+}
