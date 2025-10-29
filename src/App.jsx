@@ -9,7 +9,8 @@ import Cart from "./pages/Cart";
 
 // ✅ Use your deployed backend URL
 // ✅ For production (deployed backend)
-const API_URL = "https://msd-react-hv9l-nunl5nkqu-bhuvana4192s-projects.vercel.app";
+const API_URL = "https://msd-react-hv9l-dgkpuwlr4-bhuvana4192s-projects.vercel.app";
+
 
 
 
