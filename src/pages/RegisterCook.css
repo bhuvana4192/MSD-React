@@ -3,7 +3,6 @@
   margin: 60px auto;
   padding: 30px;
   background: #fff !important;
-  background-image: none !important;
   border-radius: 12px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
   text-align: center;
@@ -48,5 +47,10 @@
 }
 
 .register-container button:hover {
-  background:orange;
+  background: orange;
+}
+
+.register-container button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
 }

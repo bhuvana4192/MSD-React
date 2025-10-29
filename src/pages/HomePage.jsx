@@ -1,9 +1,7 @@
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './HomePage.css';
 
 export default function HomePage() {
-  const navigate = useNavigate();
-
   return (
     <div className="home-page">
       <section className="hero">
@@ -11,9 +9,7 @@ export default function HomePage() {
         <h1>Welcome To The Homely Spoon</h1>
         <p>Enjoy special homemade dishes cooked with love by local home chefs.</p>
         <br />
-        <button onClick={() => navigate('/chefs')}>
-          Our Chefs
-        </button>
+        <Link to="/chefs"><button>Our Chefs</button></Link>
       </section>
 
       <section id="about" className="section">

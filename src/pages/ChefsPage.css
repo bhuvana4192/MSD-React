@@ -33,9 +33,7 @@
   transition: transform 0.2s ease;
 }
 
-.chef-card:hover {
-  transform: translateY(-5px);
-}
+.chef-card:hover { transform: translateY(-5px); }
 
 .chef-card img {
   max-width: 100%;
@@ -50,11 +48,7 @@
   font-size: 20px;
 }
 
-.chef-card p {
-  margin: 5px 0;
-  font-size: 14px;
-  color: #333;
-}
+.chef-card p { margin: 5px 0; font-size: 14px; color: #333; }
 
 .add-to-cart-btn {
   margin-top: 10px;
@@ -70,18 +64,7 @@
   transition: background 0.3s ease;
 }
 
-.add-to-cart-btn:hover {
-  background-color: #e55b00;
-}
+.add-to-cart-btn:hover { background-color: #e55b00; }
 
-@media (max-width: 768px) {
-  .chef-card {
-    flex: 1 1 calc(50% - 20px);
-  }
-}
-
-@media (max-width: 480px) {
-  .chef-card {
-    flex: 1 1 100%;
-  }
-}
+@media (max-width: 768px) { .chef-card { flex: 1 1 calc(50% - 20px); } }
+@media (max-width: 480px) { .chef-card { flex: 1 1 100%; } }

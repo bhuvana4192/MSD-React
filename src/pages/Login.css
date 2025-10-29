@@ -1,71 +1,27 @@
-
 .login-container {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    background: linear-gradient(rgba(255, 255, 255, 0.205), rgba(255, 255, 255, 0.726)),
-                url('https://adflex.io/wp-content/uploads/2023/04/using-color-to-appeal-to-foodies.webp') no-repeat center center fixed;
-    background-size: cover;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .container {
-    max-width: 400px;
-    width: 90%;
-    background: rgba(255, 255, 255, 0.85);
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  }
-  
-  h2 {
-    text-align: center;
-    margin-bottom: 1.5rem;
-    color: #333;
-  }
-  
-  label {
-    display: block;
-    margin-top: 1rem;
-    font-weight: bold;
-    color: #444;
-  }
-  
-  input {
-    width: 100%;
-    padding: 0.5rem;
-    margin-top: 0.25rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .btn {
-    width: 100%;
-    padding: 0.75rem;
-    margin-top: 1.5rem;
-    background: #ea580c;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  
-  .btn:hover {
-    background: #c2410c;
-  }
-  
-  .toggle {
-    text-align: center;
-    margin-top: 1rem;
-    font-size: 0.9rem;
-  }
-  
-  .toggle a {
-    color: #ea580c;
-    text-decoration: none;
-  }
-  
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  background: linear-gradient(rgba(255,255,255,0.205), rgba(255,255,255,0.726)),
+              url('https://adflex.io/wp-content/uploads/2023/04/using-color-to-appeal-to-foodies.webp') no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  max-width: 400px;
+  width: 90%;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+h2 { text-align: center; margin-bottom: 1.5rem; color: #333; }
+label { display: block; margin-top: 1rem; font-weight: bold; color: #444; }
+input { width: 100%; padding: 0.5rem; margin-top: 0.25rem; border: 1px solid #ccc; border-radius: 5px; }
+.btn { width: 100%; padding: 0.75rem; margin-top: 1.5rem; background: #ea580c; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
+.btn:hover { background: #c2410c; }
+.toggle { text-align: center; margin-top: 1rem; font-size: 0.9rem; }
+.toggle a { color: #ea580c; text-decoration: none; }
