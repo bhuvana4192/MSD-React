@@ -7,10 +7,8 @@ import RegisterCook from "./pages/RegisterCook";
 import ChefsPage from "./pages/ChefsPage";
 import Cart from "./pages/Cart";
 
-// ✅ For local testing — backend is running on localhost:5000
-// When you deploy backend later, change this to:
-// const API_URL = "https://homely-spoon-backend.vercel.app";
-const API_URL = "http://localhost:5000";
+// ✅ Use your deployed backend URL
+const API_URL = "https://homely-spoon-backend.vercel.app";
 
 export default function App() {
   const [cartItems, setCartItems] = useState([]);
@@ -19,7 +17,7 @@ export default function App() {
   const [loading, setLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("loggedInUser"));
 
-  // ✅ Fetch cooks from backend
+  // ✅ Fetch all cooks from your deployed backend
   useEffect(() => {
     const fetchCooks = async () => {
       try {
@@ -36,7 +34,7 @@ export default function App() {
     fetchCooks();
   }, []);
 
-  // 🛒 Cart functions
+  // 🛒 Cart Functions
   const toggleCart = () => setIsCartOpen(!isCartOpen);
 
   const addToCart = (cook) => {
@@ -49,7 +47,7 @@ export default function App() {
     setCartItems((prev) => prev.filter((item) => item.cartId !== cartId));
   };
 
-  // 👨‍🍳 Register Cook
+  // 👨‍🍳 Register a new cook
   const registerCook = async (cookData) => {
     try {
       const payload = {
@@ -87,23 +85,48 @@ export default function App() {
     setIsLoggedIn(false);
   };
 
+  // 🧭 Render Routes
   return (
     <Router>
-      {isLoggedIn && <Navbar cartItemsCount={cartItems.length} toggleCart={toggleCart} onLogout={handleLogout} />}
+      {isLoggedIn && (
+        <Navbar
+          cartItemsCount={cartItems.length}
+          toggleCart={toggleCart}
+          onLogout={handleLogout}
+        />
+      )}
+
       <Routes>
         {!isLoggedIn ? (
           <Route path="*" element={<Login />} />
         ) : (
           <>
             <Route path="/" element={<Home />} />
-            <Route path="/register-cook" element={<RegisterCook onRegister={registerCook} />} />
-            <Route path="/chefs" element={<ChefsPage cooks={cooks} loading={loading} onAddToCart={addToCart} />} />
+            <Route
+              path="/register-cook"
+              element={<RegisterCook onRegister={registerCook} />}
+            />
+            <Route
+              path="/chefs"
+              element={
+                <ChefsPage
+                  cooks={cooks}
+                  loading={loading}
+                  onAddToCart={addToCart}
+                />
+              }
+            />
             <Route path="/login" element={<Navigate to="/" />} />
           </>
         )}
       </Routes>
+
       {isCartOpen && (
-        <Cart cartItems={cartItems} onClose={toggleCart} onRemove={removeFromCart} />
+        <Cart
+          cartItems={cartItems}
+          onClose={toggleCart}
+          onRemove={removeFromCart}
+        />
       )}
     </Router>
   );
