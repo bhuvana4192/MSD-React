@@ -12,6 +12,7 @@ import Cart from "./pages/Cart";
 const API_URL = "https://msd-react-hv9l-nunl5nkqu-bhuvana4192s-projects.vercel.app";
 
 
+
 export default function App() {
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
