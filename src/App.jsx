@@ -8,7 +8,9 @@ import ChefsPage from "./pages/ChefsPage";
 import Cart from "./pages/Cart";
 
 // ✅ Use your deployed backend URL
-const API_URL = "https://homely-spoon-backend.vercel.app";
+// ✅ For production (deployed backend)
+const API_URL = "https://msd-react-hv9l-nunl5nkqu-bhuvana4192s-projects.vercel.app";
+
 
 export default function App() {
   const [cartItems, setCartItems] = useState([]);
