@@ -11,10 +11,10 @@ export default function Login() {
     e.preventDefault();
 
     if (email && password) {
-      // Save login status
-      localStorage.setItem("isLoggedIn", "true");
+      // Save login info in localStorage
+      localStorage.setItem("loggedInUser", email);
       alert(`Welcome, ${email}!`);
-      navigate("/"); // ✅ Navigate to home without reload
+      navigate("/"); // Navigate to home
     } else {
       alert("Please enter both email and password.");
     }
@@ -44,7 +44,7 @@ export default function Login() {
           </button>
         </form>
         <div className="toggle">
-          Don’t have an account? <a href="/signup">Sign up</a>
+          Don't have an account? <a href="/signup">Sign up</a>
         </div>
       </div>
     </div>

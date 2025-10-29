@@ -12,11 +12,9 @@ export default function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [cooks, setCooks] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [isLoggedIn, setIsLoggedIn] = useState(
-    localStorage.getItem("isLoggedIn") === "true"
-  );
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("loggedInUser"));
 
-  // Fetch cooks
+  // Fetch all cooks
   useEffect(() => {
     const fetchCooks = async () => {
       try {
@@ -61,6 +59,7 @@ export default function App() {
       });
 
       if (!res.ok) throw new Error("Failed to register cook");
+
       const savedCook = await res.json();
       setCooks((prev) => [...prev, savedCook]);
     } catch (err) {
@@ -69,50 +68,26 @@ export default function App() {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("loggedInUser");
+    setIsLoggedIn(false);
+  };
+
   return (
     <Router>
-      {isLoggedIn && <Navbar cartItemsCount={cartItems.length} toggleCart={toggleCart} />}
-
+      {isLoggedIn && <Navbar cartItemsCount={cartItems.length} toggleCart={toggleCart} onLogout={handleLogout} />}
       <Routes>
-        <Route
-          path="/login"
-          element={<Login setIsLoggedIn={setIsLoggedIn} />}
-        />
-
-        <Route
-          path="/"
-          element={
-            isLoggedIn ? (
-              <Home />
-            ) : (
-              <Navigate to="/login" replace />
-            )
-          }
-        />
-
-        <Route
-          path="/register-cook"
-          element={
-            isLoggedIn ? (
-              <RegisterCook onRegister={registerCook} />
-            ) : (
-              <Navigate to="/login" replace />
-            )
-          }
-        />
-
-        <Route
-          path="/chefs"
-          element={
-            isLoggedIn ? (
-              <ChefsPage cooks={cooks} loading={loading} onAddToCart={addToCart} />
-            ) : (
-              <Navigate to="/login" replace />
-            )
-          }
-        />
+        {!isLoggedIn ? (
+          <Route path="*" element={<Login />} />
+        ) : (
+          <>
+            <Route path="/" element={<Home />} />
+            <Route path="/register-cook" element={<RegisterCook onRegister={registerCook} />} />
+            <Route path="/chefs" element={<ChefsPage cooks={cooks} loading={loading} onAddToCart={addToCart} />} />
+            <Route path="/login" element={<Navigate to="/" />} />
+          </>
+        )}
       </Routes>
-
       {isCartOpen && (
         <Cart cartItems={cartItems} onClose={toggleCart} onRemove={removeFromCart} />
       )}
