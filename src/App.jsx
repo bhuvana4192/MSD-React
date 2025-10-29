@@ -7,6 +7,11 @@ import RegisterCook from "./pages/RegisterCook";
 import ChefsPage from "./pages/ChefsPage";
 import Cart from "./pages/Cart";
 
+// ✅ For local testing — backend is running on localhost:5000
+// When you deploy backend later, change this to:
+// const API_URL = "https://homely-spoon-backend.vercel.app";
+const API_URL = "http://localhost:5000";
+
 export default function App() {
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -14,15 +19,16 @@ export default function App() {
   const [loading, setLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("loggedInUser"));
 
-  // Fetch all cooks
+  // ✅ Fetch cooks from backend
   useEffect(() => {
     const fetchCooks = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/cooks");
+        const res = await fetch(`${API_URL}/api/cooks`);
+        if (!res.ok) throw new Error("Failed to fetch cooks");
         const data = await res.json();
         setCooks(data);
       } catch (err) {
-        console.error(err);
+        console.error("Error fetching cooks:", err);
       } finally {
         setLoading(false);
       }
@@ -30,6 +36,7 @@ export default function App() {
     fetchCooks();
   }, []);
 
+  // 🛒 Cart functions
   const toggleCart = () => setIsCartOpen(!isCartOpen);
 
   const addToCart = (cook) => {
@@ -42,6 +49,7 @@ export default function App() {
     setCartItems((prev) => prev.filter((item) => item.cartId !== cartId));
   };
 
+  // 👨‍🍳 Register Cook
   const registerCook = async (cookData) => {
     try {
       const payload = {
@@ -52,22 +60,28 @@ export default function App() {
         image: cookData.image || "",
       };
 
-      const res = await fetch("http://localhost:5000/api/cooks", {
+      const res = await fetch(`${API_URL}/api/cooks`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
 
-      if (!res.ok) throw new Error("Failed to register cook");
+      if (!res.ok) {
+        const errText = await res.text();
+        console.error("Server error:", errText);
+        throw new Error("Failed to register cook");
+      }
 
       const savedCook = await res.json();
       setCooks((prev) => [...prev, savedCook]);
+      alert("Cook registered successfully!");
     } catch (err) {
-      console.error(err);
+      console.error("Error registering cook:", err);
       alert("Something went wrong!");
     }
   };
 
+  // 🚪 Logout
   const handleLogout = () => {
     localStorage.removeItem("loggedInUser");
     setIsLoggedIn(false);
