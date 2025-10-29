@@ -131,3 +131,16 @@ footer {
 .hero button:active {
   transform: scale(0.97); /* Pressed effect */
 }
+.logout-btn {
+  background-color: #ff4d4d;
+  border: none;
+  padding: 8px 15px;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.logout-btn:hover {
+  background-color: #e63946;
+}

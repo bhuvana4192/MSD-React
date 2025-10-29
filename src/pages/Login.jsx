@@ -11,10 +11,10 @@ export default function Login() {
     e.preventDefault();
 
     if (email && password) {
-      // You can add API validation here later
+      // Save login status
       localStorage.setItem("isLoggedIn", "true");
-      alert(`You have logged in successfully as ${email}`);
-      navigate("/"); // Go to homepage
+      alert(`Welcome, ${email}!`);
+      navigate("/"); // ✅ Navigate to home without reload
     } else {
       alert("Please enter both email and password.");
     }

@@ -16,7 +16,7 @@ export default function App() {
     localStorage.getItem("isLoggedIn") === "true"
   );
 
-  // Fetch all cooks
+  // Fetch cooks
   useEffect(() => {
     const fetchCooks = async () => {
       try {
@@ -61,7 +61,6 @@ export default function App() {
       });
 
       if (!res.ok) throw new Error("Failed to register cook");
-
       const savedCook = await res.json();
       setCooks((prev) => [...prev, savedCook]);
     } catch (err) {
@@ -70,47 +69,52 @@ export default function App() {
     }
   };
 
-  // Protect routes — if not logged in, redirect to login
-  if (!isLoggedIn) {
-    return (
-      <Router>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="*" element={<Navigate to="/login" />} />
-        </Routes>
-      </Router>
-    );
-  }
-
-  // Normal app when logged in
   return (
     <Router>
-      <Navbar cartItemsCount={cartItems.length} toggleCart={toggleCart} />
+      {isLoggedIn && <Navbar cartItemsCount={cartItems.length} toggleCart={toggleCart} />}
+
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
+        <Route
+          path="/login"
+          element={<Login setIsLoggedIn={setIsLoggedIn} />}
+        />
+
+        <Route
+          path="/"
+          element={
+            isLoggedIn ? (
+              <Home />
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          }
+        />
+
         <Route
           path="/register-cook"
-          element={<RegisterCook onRegister={registerCook} />}
+          element={
+            isLoggedIn ? (
+              <RegisterCook onRegister={registerCook} />
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          }
         />
+
         <Route
           path="/chefs"
           element={
-            <ChefsPage
-              cooks={cooks}
-              loading={loading}
-              onAddToCart={addToCart}
-            />
+            isLoggedIn ? (
+              <ChefsPage cooks={cooks} loading={loading} onAddToCart={addToCart} />
+            ) : (
+              <Navigate to="/login" replace />
+            )
           }
         />
       </Routes>
 
       {isCartOpen && (
-        <Cart
-          cartItems={cartItems}
-          onClose={toggleCart}
-          onRemove={removeFromCart}
-        />
+        <Cart cartItems={cartItems} onClose={toggleCart} onRemove={removeFromCart} />
       )}
     </Router>
   );
