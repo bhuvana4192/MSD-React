@@ -14,14 +14,18 @@ app.use(express.json());
 
 // ===== MongoDB Connection (Atlas) =====
 mongoose
-  .connect(process.env.MONGO_URI)
+  .connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    serverSelectionTimeoutMS: 10000, // ⏳ Wait up to 10s before timeout
+  })
   .then(() => console.log("✅ MongoDB connected"))
-  .catch((err) => console.error("❌ MongoDB connection error:", err));
+  .catch((err) => console.error("❌ MongoDB connection error:", err.message));
 
-// ===== API Routes =====
+// ===== Routes =====
 app.use("/api/cooks", cookRoutes);
 
-// ===== Test Route =====
+// ===== Root Route =====
 app.get("/", (req, res) => {
   res.send("🍽️ HomelySpoon backend is running 🚀");
 });
@@ -29,10 +33,9 @@ app.get("/", (req, res) => {
 // ===== Server Setup =====
 const PORT = process.env.PORT || 5000;
 
-// When running locally, start Express manually
 if (process.env.NODE_ENV !== "production") {
   app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
 }
 
-// Export for Vercel serverless environment
+// ===== Export for Vercel =====
 export default app;
